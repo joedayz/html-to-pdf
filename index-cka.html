@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joedayz Academy – Certificación CKA Certified Kubernetes Administrator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #326ce5;
+            --primary-dark: #1e4fc7;
+            --primary-light: #2188ff;
+            --text-primary: #1a2026;
+            --text-secondary: #4a5568;
+            --bg-light: #f8f9fc;
+            --bg-section: #f5f9ff;
+            --bg-highlight: #e8f0fe;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 40px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-primary); 
+            line-height: 1.7; 
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; 
+            padding: 60px 30px 50px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header > * { position: relative; z-index: 1; }
+        
+        .logo { 
+            height: 85px; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 2.4em; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .tagline { 
+            margin: 15px 0 0; 
+            font-size: 1.2em; 
+            opacity: 0.95; 
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .section { 
+            padding: 45px 50px; 
+        }
+        
+        .section:not(:last-child) {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        h2 { 
+            color: var(--primary); 
+            font-size: 1.75em;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: -0.3px;
+        }
+        
+        .price-box { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 40px 35px; 
+            border-radius: var(--radius-md); 
+            text-align: center; 
+            margin: 35px 0; 
+            box-shadow: var(--shadow-md);
+        }
+        
+        .price { 
+            font-size: 3.2em; 
+            font-weight: 800; 
+            margin: 0; 
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        
+        .price-small { 
+            font-size: 1.15em; 
+            opacity: 0.95; 
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .highlight { 
+            background: var(--bg-highlight); 
+            border-left: 6px solid var(--primary); 
+            padding: 25px 28px; 
+            margin: 25px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0; 
+            font-size: 1.08em;
+            line-height: 1.8;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module { 
+            background: var(--bg-section); 
+            padding: 24px 28px; 
+            margin: 20px 0; 
+            border-radius: var(--radius-sm); 
+            border-left: 5px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .module strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cta { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 50px 30px; 
+            text-align: center; 
+            font-size: 1.5em;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .wa { 
+            color: #25d366; 
+            font-size: 2.2em; 
+            font-weight: 700; 
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            transition: transform 0.2s ease;
+        }
+        
+        .wa:hover {
+            transform: scale(1.05);
+        }
+        
+        ul { 
+            padding-left: 28px; 
+            margin: 0;
+        }
+        
+        li { 
+            margin: 12px 0; 
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        footer { 
+            background: #1a202c; 
+            color: #a0aec0; 
+            text-align: center; 
+            padding: 25px; 
+            font-size: 0.95em;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; }
+            .section:not(:last-child) { border-bottom: 1px solid #e2e8f0; page-break-inside: avoid; }
+            .module { page-break-inside: avoid; }
+            .price-box { page-break-inside: avoid; }
+            .cta { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <img src="logo.gif" alt="Joedayz Academy" class="logo">
+        <h1>Certificación CKA – Certified Kubernetes Administrator</h1>
+        <p class="tagline">Curso completo + Laboratorios + Simulacros reales<br>¡Prepárate y certifícate como Administrador de Kubernetes!</p>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#326ce5;">Detalles del Curso</h2>
+        <ul>
+            <li><strong>Duración:</strong> 27 horas intensivas</li>
+            <li>Clases en vivo + grabaciones disponibles para siempre</li>
+            <li>Prerrequisitos: conocimientos básicos de Docker, Linux y YAML</li>
+            <li>Clases con profesor en vivo + soporte directo por WhatsApp</li>
+            <li>Laboratorios prácticos reales y simulacros de examen</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="price-box">
+            <div class="price">S/ 1,000 <small style="font-size:0.5em;">+ IGV</small></div>
+            <div class="price-small">≈ S/ 1,180 total • Pago único o hasta 2 cuotas sin intereses</div>
+            <div style="margin-top:20px; font-size:1.4em; font-weight:bold;">
+                Reserva tu cupo hoy con solo <span style="font-size:1.5em;">S/ 200</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#326ce5;">Todo esto está incluido</h2>
+        <div class="highlight">
+            Clases en vivo · Laboratorios 100% prácticos · Material y ejercicios por clase<br>
+            Simulacros reales del examen CKA · Soporte directo WhatsApp con el instructor<br>
+            Grabaciones para siempre · Certificado de finalización Joedayz
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#326ce5;">Temario Completo (Actualizado 2025 – Kubernetes 1.33)</h2>
+        <div class="module"><strong>1. Conceptos Clave</strong> – Arquitectura, ETCD, API Server, Scheduler, Kubelet, Pods, Deployments, Services, Namespaces…</div>
+        <div class="module"><strong>2. Scheduling</strong> – Labels/Selectors, Taints/Tolerations, Node Affinity, Resource Limits, DaemonSets, Static Pods…</div>
+        <div class="module"><strong>3. Logging & Monitoring + Ciclo de vida de aplicaciones</strong> – HPA, ConfigMaps, Secrets, Init Containers, Rolling Updates…</div>
+        <div class="module"><strong>4. Mantenimiento del Cluster</strong> – Backup/Restore ETCD, upgrades, versiones…</div>
+        <div class="module"><strong>5. Seguridad</strong> – RBAC, Service Accounts, Network Policies, Security Contexts, TLS, Certificados…</div>
+        <div class="module"><strong>6. Storage</strong> – Volumes, PV, PVC, StorageClass, CSI…</div>
+        <div class="module"><strong>7. Networking</strong> – CNI, CoreDNS, Ingress, Gateway API…</div>
+        <div class="module"><strong>8. Instalación y alta disponibilidad</strong> – kubeadm, ETCD HA…</div>
+        <div class="module"><strong>9. Helm (2025) + Kustomize</strong> – Charts, overlays, patches…</div>
+        <div class="module"><strong>10. Troubleshooting</strong> – Fallas en aplicaciones, control plane, worker nodes y red</div>
+        <div class="module"><strong>11. Simulacros reales</strong> – 3 exámenes completos con corrección detallada</div>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#326ce5;">Formas de Pago</h2>
+        <ul>
+            <li><strong>Transferencia Bancaria</strong> → Interbank CCI 003-200-003001605915-33 (DIAZ ENTERPRISES E.I.R.L.)</li>
+            <li><strong>PayPal</strong> → informes@joedayz.pe</li>
+            <li><strong>Tarjeta débito/crédito</strong> → Solicitar link al +51 939 965 148</li>
+            <li>Cta. detracción: 00046265955</li>
+        </ul>
+    </div>
+
+    <div class="cta">
+        <p>¡Cupos limitados! El último grupo CKA se llenó en menos de 10 días</p>
+        <a href="https://wa.me/51939965148" class="wa">+51 939 965 148 (WhatsApp JoeDayz)</a>
+        <p style="margin:15px 0 0;">Escríbeme ahora y reserva tu lugar</p>
+    </div>
+
+    <footer>Joedayz Academy © 2025 – Todos los derechos reservados</footer>
+</div>
+</body>
+</html>

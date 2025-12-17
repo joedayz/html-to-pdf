@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joedayz Academy – Certificación Java SE 21 Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #326ce5;
+            --primary-dark: #1e4fc7;
+            --primary-light: #2188ff;
+            --text-primary: #1a2026;
+            --text-secondary: #4a5568;
+            --bg-light: #f8f9fc;
+            --bg-section: #f5f9ff;
+            --bg-highlight: #e8f0fe;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 40px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-primary); 
+            line-height: 1.7; 
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; 
+            padding: 60px 30px 50px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header > * { position: relative; z-index: 1; }
+        
+        .logo { 
+            height: 85px; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 2.4em; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .tagline { 
+            margin: 15px 0 0; 
+            font-size: 1.2em; 
+            opacity: 0.95; 
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .section { 
+            padding: 45px 50px; 
+        }
+        
+        .section:not(:last-child) {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        h2 { 
+            color: var(--primary); 
+            font-size: 1.75em;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: -0.3px;
+        }
+        
+        .price-box { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 40px 35px; 
+            border-radius: var(--radius-md); 
+            text-align: center; 
+            margin: 35px 0; 
+            box-shadow: var(--shadow-md);
+        }
+        
+        .price { 
+            font-size: 3.2em; 
+            font-weight: 800; 
+            margin: 0; 
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        
+        .price-small { 
+            font-size: 1.15em; 
+            opacity: 0.95; 
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .highlight { 
+            background: var(--bg-highlight); 
+            border-left: 6px solid var(--primary); 
+            padding: 25px 28px; 
+            margin: 25px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0; 
+            font-size: 1.08em;
+            line-height: 1.8;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module { 
+            background: var(--bg-section); 
+            padding: 24px 28px; 
+            margin: 20px 0; 
+            border-radius: var(--radius-sm); 
+            border-left: 5px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .module strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cta { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 50px 30px; 
+            text-align: center; 
+            font-size: 1.5em;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .wa { 
+            color: #25d366; 
+            font-size: 2.2em; 
+            font-weight: 700; 
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            transition: transform 0.2s ease;
+        }
+        
+        .wa:hover {
+            transform: scale(1.05);
+        }
+        
+        ul { 
+            padding-left: 28px; 
+            margin: 0;
+        }
+        
+        li { 
+            margin: 12px 0; 
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        footer { 
+            background: #1a202c; 
+            color: #a0aec0; 
+            text-align: center; 
+            padding: 25px; 
+            font-size: 0.95em;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; }
+            .section:not(:last-child) { border-bottom: 1px solid #e2e8f0; page-break-inside: avoid; }
+            .module { page-break-inside: avoid; }
+            .price-box { page-break-inside: avoid; }
+            .cta { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <img src="logo.gif" alt="Joedayz Academy" class="logo">
+    <h1>Certificación Java SE 21 Developer</h1>
+    <p class="tagline">Curso completo + Ejercicios prácticos + Simulacros reales
+¡Prepárate y certifícate como Desarrollador Java SE 21!</p>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Detalles del Curso</h2>
+    <ul>
+        <li><strong>Duración:</strong> 45 horas</li>
+        <li>Clases grabadas online vía Zoom</li>
+        <li>Prerrequisitos: Conocimientos de Fundamentos de programación</li>
+        <li>Simulacros por tópico y simulacros tipo examen de 50 preguntas</li>
+        <li>Ejercicios y material por cada clase</li>
+    </ul>
+</div>
+
+<div class="section">
+    <div class="price-box">
+        <div class="price">S/ 1,000</div>
+        <div class="price-small">(incluido IGV) • Costo para Profesionales</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Todo esto está incluido</h2>
+    <div class="highlight">
+        Clases grabadas online · Simulacros por tópico y tipo examen · Material y ejercicios por clase
+
+        Cobertura en profundidad de temas centrales de Java y APIs · Beneficios: Describir POO, sintaxis Java, APIs como Collections, Streams, IO y Concurrency, desplegar aplicaciones
+
+        Preparación para el examen Oracle 1Z0-830 (50 preguntas, 120 minutos, 68% aprobación)
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Temario Completo (Actualizado 2024 – Java SE 21)</h2>
+    <div class="module"><strong>1. Introducción a Java</strong> – Explicar características Java y Conceptos orientados a objetos; Definir, compilar y ejecutar un programa Java</div>
+    <div class="module"><strong>2. Tipos primitivos, Operadores y Control de Flujo</strong> – Declarar, inicializar primitivos y entender restricciones; Describir operadores Java, Asignación, operadores aritméticos y type casting; Representación de numeros binarios y operadores lógicos bitwise; Operadores de igualdad, relacionales, condicionales, ternario y if/else; Control de flujo usando Switch</div>
+    <div class="module"><strong>3. Texto, Fechas, Tiempo y Objetos Numéricos</strong> – Inicialización de String y Operaciones; Indexing String, Objetos de texto mutables y Blocks; Describir Wrapper de primitivos, Clases BigDecimal y encadenamiento de métodos; Manejar fechas y tiempo; Representar lenguajes y paises, formatear y parsear números, fechas y tiempo; Describir localización y formateo de clases</div>
+    <div class="module"><strong>4. Clases y Objetos</strong> – Ejercicio de creación de clases; Documentar clases</div>
+    <div class="module"><strong>5. Diseño de clases</strong> – Sobrecarga de métodos; Constructores; Encapsulación e inmutabilidad usando modificadores de acceso; Explicando el provisionamiento de memoria en Java y pase de parámetros; Explicando la recolección de memoria en Java</div>
+    <div class="module"><strong>6. Herencia y uso de Records</strong> – Herencia de clases y reutilización de código usando herencia; Instanciar clases y acceso a objetos, reglas de casting de tipos de referencia; Verificando el tipo de un bojeto usando el instanceof, ejecutar type casting de tipos de referencia; Referenciar codigo dentro de objetos y definir constructores de subclases; Sobreescritura de métodos y uso de polimorfismo; Definir clases abstractas, final, sealed e interfaces; Sobreescribir operaciones de la clase Object; Definir clases Record, Pattern matching para switch; Definir y usar métodos Factory</div>
+    <div class="module"><strong>7. Interfaces y Genéricos</strong> – Describir interfaces; Implementar interfaces; Heredar de interfaces y usar interfaces funcionales; Usar genéricos; Explorar interfaces comunes de Java y usar el patrón composition</div>
+    <div class="module"><strong>8. Arrays y Loops</strong> – Declarar, crear e inicializar arrays; Usar arrays multidimensionales y clases Array; Procesar arrays en un loop; Usar loops embebidos, break y continue</div>
+    <div class="module"><strong>9. Colecciones</strong> – Introducir el Java Collection API, interfaces y clases de implementación; Crear y manejar List, Set, Deque, HashMap y contenidos; Iterar, a través de, colecciones, usar Sequenced Collections y clases Collections; Acceder a colecciones concurrentemente y prevenir corrupción de colecciones</div>
+    <div class="module"><strong>10. Clases Nested y Expresiones Lambdas</strong> – Introducir clases Nested e Inner; Clases Inner anónmias e interfaces funcionales; Definir parámetros de una expresión lambda y body; Usar referencias a métodos y métodos no abstractos en interfaces</div>
+    <div class="module"><strong>11. API Java Stream</strong> – Describir el API Java Stream y procesar stream pipelines; Implementar interfaces funcionales y Primitive y variantes Bi-argument; Procesar Stream Pipelines y ejecutar operaciones Stream; Procesar Stream y agregar stream data; Usar collectors, ejecutar grouping y partitioning del contenido de un Stream; Describir el procesamiento de un stream paralelo, guía y restricciones; Usar Spliterator</div>
+    <div class="module"><strong>12. Manejo de Excepciones, Logging y Debugging</strong> – Java Logging; Manejo de excepciones; Debugging</div>
+    <div class="module"><strong>13. API Java IO</strong> – Explorar el API Java IO; Leer y escribir data binaria y caracteres; Usar entrada estándar, salida y clase Console; Entender la serialización, el grafo de objetos serializable y serialización de objetos; Personalizar la serialización y deserialización; Construyendo el Filesystem Paths y navegando en el Filesystem; Operar en objetos Path y Properties, manejar archivos temporales y directorios; Explorar ejemplos de I/O: trabajar con archivos Zip y acceder a recursos HTTP</div>
+    <div class="module"><strong>14. Concurrencia en Java y Multithreading</strong> – Conceptos e implementación de Hilos; Manejar el ciclo de vida de un Hilo, interrumpir y bloquear un Hilo; Wait y propiedades; Manejar e implementar un Executor Service; Discutir problemas de locking y asegurar ejecución segura de hilos; Acciones atomicas no bloqueantes, lock intrinseco y automatización de concurrencia; CPU vs IO Bound Concurrent Tasks y uso de Virtual Threads</div>
+    <div class="module"><strong>15. Módulos y Despliegue</strong> – Compilar, empaquetar y ejecutar aplicaciones no modulares; Describir el Java Module System; Crear dependencias de módulos y exportar contenido de módulo; Definir y usar Module Services; Compilar, empaquetar, ejecutar y migrar aplicaciones modulares; Crear y ejecutar una imagen runtime personalizada</div>
+    <div class="module"><strong>16. Anotaciones</strong></div>
+    <div class="module"><strong>17. Conectividad a Base de Datos con JDBC</strong></div>
+    <div class="module"><strong>18. Seguridad Java</strong></div>
+    <div class="module"><strong>19. Genericos avanzado</strong> – Erasure y uso de genéricos</div>
+    <div class="module"><strong>20. Aplicaciones Java en Oracle Cloud</strong> – Principios de diseño de aplicaciones cloud</div>
+    <div class="module"><strong>21. Temas adicionales</strong> – Describir patrones de diseño, Java IO, File Watch Service</div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Formas de Pago</h2>
+    <ul>
+        <li><strong>Transferencia Bancaria</strong> → Interbank Cuenta Corriente Soles 200-3001605915 CCI 003-200-003001605915-33</li>
+        <li><strong>Tarjeta débito/crédito</strong> → Solicitar el pago al +51 966 025 115 (WhatsApp)</li>
+    </ul>
+</div>
+
+<div class="cta">
+    <p>¡Cupos limitados! Contáctanos para consultas o comentarios</p>
+    <a href="https://wa.me/51939965148" class="wa">+51 939 965 148 (WhatsApp JoeDayz)</a>
+    <p style="margin:15px 0 0;">Escríbeme ahora y reserva tu lugar</p>
+</div>
+
+<footer>Joedayz Academy © 2025 – Todos los derechos reservados</footer></div>
+</body>
+</html>
+

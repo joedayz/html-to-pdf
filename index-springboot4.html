@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joedayz Academy – Taller Spring Boot 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #326ce5;
+            --primary-dark: #1e4fc7;
+            --primary-light: #2188ff;
+            --accent: #ffc107;
+            --accent-light: #fff3cd;
+            --text-primary: #1a2026;
+            --text-secondary: #4a5568;
+            --bg-light: #f8f9fc;
+            --bg-section: #f5f9ff;
+            --bg-highlight: #e8f0fe;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 40px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-primary); 
+            line-height: 1.7; 
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; 
+            padding: 60px 30px 50px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header > * { position: relative; z-index: 1; }
+        
+        .logo { 
+            height: 85px; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 2.4em; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .tagline { 
+            margin: 15px 0 0; 
+            font-size: 1.2em; 
+            opacity: 0.95; 
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .section { 
+            padding: 45px 50px; 
+        }
+        
+        .section:not(:last-child) {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        h2 { 
+            color: var(--primary); 
+            font-size: 1.75em;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: -0.3px;
+        }
+        
+        .price-box { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 40px 35px; 
+            border-radius: var(--radius-md); 
+            text-align: center; 
+            margin: 35px 0; 
+            box-shadow: var(--shadow-md);
+        }
+        
+        .price-title { 
+            font-size: 1.6em; 
+            font-weight: 700; 
+            margin-bottom: 25px; 
+            letter-spacing: 0.5px;
+        }
+        
+        .price { 
+            font-size: 3em; 
+            font-weight: 800; 
+            margin: 15px 0; 
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        
+        .price-small { 
+            font-size: 1.15em; 
+            opacity: 0.95; 
+            margin: 8px 0; 
+            font-weight: 400;
+        }
+        
+        .price-option { 
+            margin: 25px 0; 
+            padding: 25px; 
+            background: rgba(255,255,255,0.12); 
+            border-radius: var(--radius-sm); 
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        
+        .price-label { 
+            font-size: 1.25em; 
+            font-weight: 600; 
+            margin-bottom: 12px; 
+        }
+        
+        .early-bird { 
+            background: rgba(255,193,7,0.25); 
+            border: 2px solid rgba(255,193,7,0.6); 
+            box-shadow: 0 4px 12px rgba(255,193,7,0.2);
+        }
+        
+        .highlight { 
+            background: var(--bg-highlight); 
+            border-left: 6px solid var(--primary); 
+            padding: 25px 28px; 
+            margin: 25px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0; 
+            font-size: 1.08em;
+            line-height: 1.8;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module { 
+            background: var(--bg-section); 
+            padding: 24px 28px; 
+            margin: 20px 0; 
+            border-radius: var(--radius-sm); 
+            border-left: 5px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .module-title { 
+            font-size: 1.15em; 
+            font-weight: 700; 
+            color: var(--primary); 
+            margin-bottom: 10px; 
+            line-height: 1.4;
+        }
+        
+        .module-content { 
+            margin-top: 12px; 
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .stack { 
+            background: var(--accent-light); 
+            border-left: 5px solid var(--accent); 
+            padding: 20px 25px; 
+            margin: 20px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stack-title { 
+            font-weight: 700; 
+            margin-bottom: 10px; 
+            color: #856404;
+            font-size: 1.1em;
+        }
+        
+        .cta { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 50px 30px; 
+            text-align: center; 
+            font-size: 1.5em;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .wa { 
+            color: #25d366; 
+            font-size: 2.2em; 
+            font-weight: 700; 
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            transition: transform 0.2s ease;
+        }
+        
+        .wa:hover {
+            transform: scale(1.05);
+        }
+        
+        ul { 
+            padding-left: 28px; 
+            margin: 0;
+        }
+        
+        li { 
+            margin: 12px 0; 
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        footer { 
+            background: #1a202c; 
+            color: #a0aec0; 
+            text-align: center; 
+            padding: 25px; 
+            font-size: 0.95em;
+        }
+        
+        .message-key { 
+            background: var(--accent-light); 
+            border-left: 6px solid var(--accent); 
+            padding: 28px 30px; 
+            margin: 25px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0; 
+            font-size: 1.15em; 
+            font-weight: 600; 
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            line-height: 1.6;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; }
+            .section:not(:last-child) { border-bottom: 1px solid #e2e8f0; page-break-inside: avoid; }
+            .module { page-break-inside: avoid; }
+            .price-box { page-break-inside: avoid; }
+            .cta { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <img src="logo.gif" alt="Joedayz Academy" class="logo">
+    <h1>Taller: Desarrollo de Microservicios Cloud-Native con Spring Boot 4</h1>
+    <p class="tagline">Spring moderno, cloud-native, reactivo, listo para Kubernetes y producción</p>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Detalles del Curso</h2>
+    <ul>
+        <li><strong>Duración:</strong> 18–22 horas</li>
+        <li>Clases grabadas online vía Zoom</li>
+        <li>Prerrequisitos: Fundamentos de desarrollo de aplicaciones (Java Enterprise)</li>
+        <li>Teoría de cada tema y su respectiva demo en Github</li>
+        <li>Demos funcionales por cada tópico</li>
+    </ul>
+</div>
+
+<div class="section">
+    <div class="stack">
+        <div class="stack-title">Stack sugerido:</div>
+        <ul style="margin:8px 0;">
+            <li>Spring Boot 4</li>
+            <li>Java 21 / 22</li>
+            <li>Spring Web / WebFlux</li>
+            <li>Spring Data JPA + R2DBC</li>
+            <li>Spring Security 6+</li>
+            <li>Spring Cloud (Config, Gateway, Resilience4j)</li>
+            <li>Testcontainers</li>
+            <li>Micrometer + OpenTelemetry</li>
+            <li>GraalVM Native Image</li>
+            <li>Docker + Kubernetes</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <div class="price-box">
+        <div class="price-title">💰 Costo Combo</div>
+        <div class="price-option">
+            <div class="price-label">Precio Regular:</div>
+            <div class="price">S/. 1,400.00</div>
+            <div class="price-small">US$ 408.79</div>
+        </div>
+        <div class="price-option early-bird">
+            <div class="price-label">🎯 Early Bird:</div>
+            <div class="price">S/. 1,150.00</div>
+            <div class="price-small">US$ 335.80</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Todo esto está incluido</h2>
+    <div class="highlight">
+        Clases grabadas online · Teoría por tema con demos en Github · Demos funcionales por tópico
+
+        Enfoque en principios arquitectónicos y microservicios listos para Kubernetes · Beneficios: Crear microservicios cloud-native y reactivos
+
+        Basado en Kubernetes y Spring Boot 4
+    </div>
+</div>
+
+<div class="section">
+    <div class="message-key">
+        "Este no es el Spring tradicional.<br>
+        Es Spring Boot 4, cloud-native, reactivo, nativo, listo para Kubernetes y producción."
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Temario Completo (Actualizado 2025 – Spring Boot 4)</h2>
+    
+    <div class="module">
+        <div class="module-title">1️⃣ Introducción al desarrollo de microservicios cloud-native con Spring Boot (1 hora)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> ¿Qué significa cloud-native hoy?; Evolución de Spring → Boot 3 → Boot 4; Monolito vs microservicios; JVM tradicional vs Native Image; Spring Boot vs Quarkus (comparativa honesta); Arquitectura del taller<br>
+            <strong>Hands-on:</strong> Crear proyecto con spring init; Estructura básica del proyecto; Primer endpoint REST
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">2️⃣ Configuración externa y perfiles (Spring Config) (1 hora)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> application.yml y perfiles; Variables de entorno; Configuración por ambiente; @ConfigurationProperties; Spring Cloud Config (conceptos)<br>
+            <strong>Hands-on:</strong> Configuración por dev, test, prod; Override vía ENV / Kubernetes ConfigMap
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">3️⃣ Desarrollo de APIs REST con Spring (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Spring MVC vs WebFlux; @RestController; Validaciones (@Valid); Manejo de errores (@ControllerAdvice); OpenAPI / Swagger<br>
+            <strong>Hands-on:</strong> CRUD REST; Validación de request; Documentación automática
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">4️⃣ Persistencia con Spring Boot (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Spring Data JPA; Hibernate 6; Mapeo de entidades; Transacciones; Introducción a R2DBC (reactivo)<br>
+            <strong>Hands-on:</strong> CRUD con JPA; Query methods; Paginación
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">5️⃣ Aplicaciones nativas con Spring Boot y GraalVM (2 horas) 🔥</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Qué es GraalVM Native Image; AOT en Spring Boot 4; Diferencias JVM vs Native; Limitaciones reales<br>
+            <strong>Hands-on:</strong> Compilar app nativa; Comparar: Tiempo de arranque, Uso de memoria; Docker + Native Image<br>
+            <em>Este módulo es CLAVE para diferenciar tu taller.</em>
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">6️⃣ Testing en microservicios con Spring (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Testing en Spring Boot; @SpringBootTest; MockMvc / WebTestClient; Testcontainers; Tests de integración reales<br>
+            <strong>Hands-on:</strong> Test REST; Test con base de datos real (Testcontainers); Test en pipeline
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">7️⃣ Microservicios reactivos y asíncronos (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Programación reactiva; Project Reactor (Mono, Flux); WebFlux; R2DBC; Backpressure<br>
+            <strong>Hands-on:</strong> Endpoint reactivo; Acceso no bloqueante a BD; Comparación MVC vs WebFlux
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">8️⃣ Seguridad de microservicios con Spring Security (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Spring Security moderno (sin XML); JWT; OAuth2 / OpenID Connect; Integración con Keycloak / Auth0<br>
+            <strong>Hands-on:</strong> Proteger endpoints; Roles y scopes; Seguridad stateless
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">9️⃣ Implementación de microservicios en Kubernetes (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Dockerización de Spring Boot; Liveness / Readiness probes; ConfigMaps y Secrets; Despliegue en Kubernetes<br>
+            <strong>Hands-on:</strong> Build Docker; Deploy en K8s; Acceso vía Service
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">🔟 Tolerancia a fallos en microservicios (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Resilience4j; Circuit Breaker; Retry; Rate Limiter; Timeouts<br>
+            <strong>Hands-on:</strong> Simular fallos; Activar circuit breaker; Métricas de resiliencia
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">1️⃣1️⃣ Observabilidad y monitoreo con Spring (2 horas)</div>
+        <div class="module-content">
+            <strong>Contenido:</strong> Micrometer; Prometheus; OpenTelemetry; Tracing distribuido; Logs estructurados<br>
+            <strong>Hands-on:</strong> Métricas; Traces; Dashboards básicos
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">1️⃣2️⃣ Integración con Angular (2 horas) 🔥 Módulo EXTRA</div>
+        <div class="module-content">
+            Consumo de API Spring desde Angular; CORS; JWT desde frontend; Arquitectura frontend–backend
+        </div>
+    </div>
+
+    <div class="module">
+        <div class="module-title">1️⃣3️⃣ Integración con React (2 horas) 🔥 Módulo EXTRA</div>
+        <div class="module-content">
+            Fetch / Axios; Manejo de auth; SPA + microservicios; Buenas prácticas
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Formas de Pago</h2>
+    <ul>
+        <li><strong>Transferencia Bancaria</strong> → Interbank Cuenta Corriente Soles 200-300160591 CCI 003-200-003001605915-33</li>
+        <li><strong>Tarjeta débito/crédito</strong> → Solicitar el pago al +51 939 965 148 (WhatsApp)</li>
+    </ul>
+</div>
+
+<div class="cta">
+    <p>¡Cupos limitados! Contáctanos para consultas o comentarios</p>
+    <a href="https://wa.me/51939965148" class="wa">+51 939 965 148 (WhatsApp JoeDayz)</a>
+    <p style="margin:15px 0 0;">Escríbeme ahora y reserva tu lugar</p>
+</div>
+
+<footer>Joedayz Academy © 2025 – Todos los derechos reservados</footer></div>
+</body>
+</html>

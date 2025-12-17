@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joedayz Academy – Diplomado AWS Professional 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --aws-orange: #ff9900;
+            --aws-dark: #232f3e;
+            --aws-darker: #1a2a3a;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --bg-light: #f5f7fa;
+            --bg-section: #fff8f0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-primary); 
+            line-height: 1.7; 
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, var(--aws-darker) 0%, var(--aws-dark) 100%); 
+            color: white; 
+            padding: 60px 30px 50px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header > * { position: relative; z-index: 1; }
+        
+        .logo { 
+            height: 90px; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 2.5em; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .tagline { 
+            margin: 15px 0 0; 
+            font-size: 1.25em; 
+            opacity: 0.95; 
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .section { 
+            padding: 45px 50px; 
+        }
+        
+        .section:not(:last-child) {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        h2 { 
+            color: var(--aws-dark); 
+            font-size: 1.75em;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: -0.3px;
+        }
+        
+        .price-box { 
+            background: linear-gradient(135deg, var(--aws-orange) 0%, #ff8800 100%); 
+            color: var(--aws-dark); 
+            padding: 40px 35px; 
+            border-radius: var(--radius-md); 
+            text-align: center; 
+            margin: 35px 0; 
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .price { 
+            font-size: 4em; 
+            font-weight: 900; 
+            margin: 0; 
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+        
+        .price-small { 
+            font-size: 1.15em; 
+            margin-top: 10px; 
+            opacity: 0.9; 
+            font-weight: 500;
+        }
+        
+        .highlight { 
+            background: var(--bg-section); 
+            border-left: 6px solid var(--aws-orange); 
+            padding: 25px 28px; 
+            margin: 25px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0; 
+            font-size: 1.1em;
+            line-height: 1.8;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module { 
+            background: var(--bg-section); 
+            padding: 24px 28px; 
+            margin: 20px 0; 
+            border-radius: var(--radius-sm); 
+            border-left: 6px solid var(--aws-orange);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .module strong { 
+            color: var(--aws-dark); 
+            font-size: 1.15em;
+            font-weight: 700;
+        }
+        
+        .cta { 
+            background: linear-gradient(135deg, var(--aws-dark) 0%, var(--aws-darker) 100%); 
+            color: white; 
+            padding: 50px 30px; 
+            text-align: center; 
+            font-size: 1.5em;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .wa { 
+            color: #25d366; 
+            font-size: 2.3em; 
+            font-weight: 700; 
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            transition: transform 0.2s ease;
+        }
+        
+        .wa:hover {
+            transform: scale(1.05);
+        }
+        
+        ul { 
+            padding-left: 28px; 
+            margin: 0;
+        }
+        
+        li { 
+            margin: 12px 0; 
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        footer { 
+            background: #0f1821; 
+            color: #94a3b8; 
+            text-align: center; 
+            padding: 25px; 
+            font-size: 0.95em;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; }
+            .section:not(:last-child) { border-bottom: 1px solid #e2e8f0; page-break-inside: avoid; }
+            .module { page-break-inside: avoid; }
+            .price-box { page-break-inside: avoid; }
+            .cta { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <img src="logo.gif" alt="Joedayz Academy" class="logo">
+        <h1>Diplomado AWS Certified<br>Solutions Architect 2026</h1>
+        <p class="tagline">CLF-C02 → SAA-C03 <br>
+        De cero a <strong>AWS Certified Solutions Architect Associate</strong> en un solo programa</p>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#232f3e;">Detalles del Diplomado</h2>
+        <ul>
+            <li>Duración total: <strong>62 horas</strong> intensivas</li>
+            <li>Modalidad: Clases en vivo por Zoom + grabaciones permanentes</li>
+            <li>Inicio próximo grupo: Enero 2026</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="price-box">
+            <div class="price">S/ 1,000</div>
+            <div class="price-small">Pago único · Hasta 2 cuotas sin intereses disponibles</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#232f3e;">Certificaciones Oficiales AWS Incluidas</h2>
+        <ul>
+            <li>AWS Certified Cloud Practitioner (CLF-C02)</li>
+            <li>AWS Certified Solutions Architect Associate (SAA-C03)</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#232f3e;">Todo esto está incluido</h2>
+        <div class="highlight">
+            Laboratorios reales en cuenta AWS + Banco de preguntas de examen · Simulacros ilimitados<br>
+            Soporte directo por WhatsApp con instructor · Grabaciones para siempre · Certificado Joedayz verificable<br>
+            Plantillas CloudFormation, diagramas y respuestas tipo.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 style="color:#232f3e;">Contenido por Módulos</h2>
+        <div class="module"><strong>AWS Cloud Practitioner (CLF-C02) – 14 horas</strong><br>Fundamentos, servicios principales, billing, seguridad y simulacros</div>
+        <div class="module"><strong>AWS Solutions Architect Associate (SAA-C03) – 48 horas</strong><br>VPC, EC2, S3, RDS, Lambda, HA, seguridad avanzada, migraciones + labs intensivos</div>
+    
+    </div>
+
+    <div class="section">
+        <h2 style="color:#232f3e;">Formas de Pago</h2>
+        <ul>
+            <li>Transferencia → Interbank CCI 003-200-003001605915-33</li>
+            <li>Yape/Plin → +51 939 965 148</li>
+            <li>Tarjeta (+5% comisión) → +51 966 025 115</li>
+            <li>Cuotas sin intereses → consultar al WhatsApp</li>
+        </ul>
+    </div>
+
+    <div class="cta">
+        <p>¿Listo para ser AWS Solutions Architect Associate en 2026?</p>
+        <a href="https://wa.me/51939965148" class="wa">+51 939 965 148 (JoeDayz)</a>
+        <p style="margin-top:20px; font-size:1.1em;">Cupos estrictamente limitados • Se llenan en días</p>
+    </div>
+
+    <footer>Joedayz Academy © 2026 – Partner Educativo AWS</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joedayz Academy – Microservicios con .NET 10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #326ce5;
+            --primary-dark: #1e4fc7;
+            --primary-light: #2188ff;
+            --text-primary: #1a2026;
+            --text-secondary: #4a5568;
+            --bg-light: #f8f9fc;
+            --bg-section: #f5f9ff;
+            --bg-highlight: #e8f0fe;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 15px 40px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-primary); 
+            line-height: 1.7; 
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); 
+            color: white; 
+            padding: 60px 30px 50px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header > * { position: relative; z-index: 1; }
+        
+        .logo { 
+            height: 85px; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 2.4em; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        
+        .tagline { 
+            margin: 15px 0 0; 
+            font-size: 1.2em; 
+            opacity: 0.95; 
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .section { 
+            padding: 45px 50px; 
+        }
+        
+        .section:not(:last-child) {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        h2 { 
+            color: var(--primary); 
+            font-size: 1.75em;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: -0.3px;
+        }
+        
+        .price-box { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 40px 35px; 
+            border-radius: var(--radius-md); 
+            text-align: center; 
+            margin: 35px 0; 
+            box-shadow: var(--shadow-md);
+        }
+        
+        .price { 
+            font-size: 3.2em; 
+            font-weight: 800; 
+            margin: 0; 
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        
+        .price-small { 
+            font-size: 1.15em; 
+            opacity: 0.95; 
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .price-label {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .price-regular {
+            margin-bottom: 30px;
+        }
+        
+        .price-early-bird {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .price-early-bird .price-label {
+            color: #ffd700;
+            font-weight: 600;
+        }
+        
+        .price-usd {
+            font-size: 0.85em;
+            opacity: 0.85;
+            margin-top: 5px;
+        }
+        
+        .highlight { 
+            background: var(--bg-highlight); 
+            border-left: 6px solid var(--primary); 
+            padding: 25px 28px; 
+            margin: 25px 0; 
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0; 
+            font-size: 1.08em;
+            line-height: 1.8;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module { 
+            background: var(--bg-section); 
+            padding: 24px 28px; 
+            margin: 20px 0; 
+            border-radius: var(--radius-sm); 
+            border-left: 5px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .module strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cta { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+            color: white; 
+            padding: 50px 30px; 
+            text-align: center; 
+            font-size: 1.5em;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .wa { 
+            color: #25d366; 
+            font-size: 2.2em; 
+            font-weight: 700; 
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            transition: transform 0.2s ease;
+        }
+        
+        .wa:hover {
+            transform: scale(1.05);
+        }
+        
+        ul { 
+            padding-left: 28px; 
+            margin: 0;
+        }
+        
+        li { 
+            margin: 12px 0; 
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        footer { 
+            background: #1a202c; 
+            color: #a0aec0; 
+            text-align: center; 
+            padding: 25px; 
+            font-size: 0.95em;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; }
+            .section:not(:last-child) { border-bottom: 1px solid #e2e8f0; page-break-inside: avoid; }
+            .module { page-break-inside: avoid; }
+            .price-box { page-break-inside: avoid; }
+            .cta { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <img src="logo.gif" alt="Joedayz Academy" class="logo">
+    <h1>Microservicios con .NET 10</h1>
+    <p class="tagline">Aprende a construir microservicios empresariales usando .NET 10, Azure, Terraform e Istio. Arquitectura hexagonal, DDD, integración con Azure Cloud (App Configuration, Key Vault, Service Bus, AKS), automatización con Terraform, observabilidad con Istio y pipelines CI/CD completos.</p>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Detalles del Curso</h2>
+    <ul>
+        <li><strong>Duración:</strong> 40 horas</li>
+        <li>Acceso a recursos Azure para practicar laboratorios</li>
+        <li><strong>Prerrequisitos:</strong> .NET 10 SDK; Docker Desktop o Podman; Azure CLI; Terraform; kubectl; istioctl; Conocimientos básicos de C# y .NET; Experiencia previa con desarrollo web (recomendado)</li>
+        <li><strong>Herramientas:</strong> .NET 10, Azure Cloud (App Configuration, Key Vault, Service Bus, AKS, ACR, Azure Functions), Terraform, Istio, Kubernetes, Docker, GitHub Actions / Azure DevOps</li>
+        <li><strong>Tecnologías:</strong> .NET 10, Azure Cloud Services, Terraform (IaC), Istio Service Mesh, PostgreSQL, MongoDB, Redis, gRPC, Azure AD, OAuth2</li>
+    </ul>
+</div>
+
+<div class="section">
+    <div class="price-box">
+        <div class="price-regular">
+            <div class="price-label">Precio Regular</div>
+            <div class="price">S/ 1,300</div>
+            <div class="price-usd">US$ 379.60</div>
+        </div>
+        <div class="price-early-bird">
+            <div class="price-label">🎯 Early Bird</div>
+            <div class="price">S/ 1,050</div>
+            <div class="price-usd">US$ 306.60</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Todo esto está incluido</h2>
+    <div class="highlight">
+        Taller práctico para desarrollar microservicios empresariales con .NET 10 · Integración completa con Azure Cloud (App Configuration, Key Vault, Service Bus, AKS) · Arquitectura Hexagonal y Domain-Driven Design (DDD)
+
+        Automatización de infraestructura con Terraform · Observabilidad con Istio (Jaeger, Kiali, Prometheus) · Pipelines CI/CD completos con GitHub Actions / Azure DevOps
+
+        Proyecto integrador completo con código funcional · Documentación detallada de cada módulo · Soporte vía WhatsApp del instructor · Repositorio con código completo
+    </div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Temario Completo (Actualizado 2025 – .NET 10)</h2>
+    <div class="module"><strong>Fundamentos de Microservicios</strong> – Introducción a arquitectura de microservicios; Ventajas y desventajas; Cuándo usar microservicios vs monolito; Patrones fundamentales</div>
+    <div class="module"><strong>Principios y patrones de diseño (DDD, Arquitectura Hexagonal)</strong> – Domain-Driven Design (DDD); Arquitectura Hexagonal; Separación de responsabilidades; Clean Architecture en .NET</div>
+    <div class="module"><strong>Buenas prácticas de diseño (Versionamiento, DTOs)</strong> – Versionamiento de APIs; Data Transfer Objects (DTOs); Mapeo de objetos; Validación de datos</div>
+    <div class="module"><strong>Persistencia de datos (PostgreSQL, MongoDB)</strong> – Entity Framework Core con PostgreSQL; MongoDB con .NET; Migrations y Code First; Repositorios y Unit of Work</div>
+    <div class="module"><strong>Performance y consultas (Redis, índices)</strong> – Caching distribuido con Redis; Optimización de consultas; Índices en bases de datos; Estrategias de cache</div>
+    <div class="module"><strong>Configuración centralizada (Azure App Configuration, Key Vault)</strong> – Azure App Configuration; Azure Key Vault; Gestión de secretos; Configuración por ambiente</div>
+    <div class="module"><strong>Integración (REST, gRPC, Service Bus)</strong> – APIs REST con ASP.NET Core; gRPC para comunicación eficiente; Azure Service Bus; Mensajería asíncrona</div>
+    <div class="module"><strong>Seguridad (Azure AD, OAuth2)</strong> – Autenticación con Azure AD; OAuth2 y OpenID Connect; Autorización basada en roles; JWT tokens</div>
+    <div class="module"><strong>Comunicación (API Gateway, gRPC)</strong> – API Gateway con YARP/Ocelot; Enrutamiento y agregación; gRPC inter-servicios; Load balancing</div>
+    <div class="module"><strong>Serverless (Azure Functions)</strong> – Azure Functions con .NET; Event-driven architecture; Integración con microservicios; Escalado automático</div>
+    <div class="module"><strong>Alta disponibilidad (Polly, Circuit Breaker)</strong> – Polly para resiliencia; Circuit Breaker pattern; Retry policies; Tolerancia a fallos</div>
+    <div class="module"><strong>Balanceo de carga (AKS)</strong> – Azure Kubernetes Service (AKS); Deployments y Services; Horizontal Pod Autoscaling; Service mesh concepts</div>
+    <div class="module"><strong>Azure Cloud (ACR, AKS)</strong> – Azure Container Registry (ACR); Containerización con Docker; Despliegue en AKS; Gestión de imágenes</div>
+    <div class="module"><strong>DevOps (CI/CD Pipelines)</strong> – GitHub Actions / Azure DevOps; Build y test automatizados; Deployment pipelines; Automated testing</div>
+    <div class="module"><strong>Terraform (IaC)</strong> – Infrastructure as Code; Terraform básico y avanzado; Provisioning de recursos Azure; Gestión de estado</div>
+    <div class="module"><strong>Observabilidad (Istio, Jaeger, Kiali, Prometheus)</strong> – Istio Service Mesh; Tracing distribuido con Jaeger; Visualización con Kiali; Métricas con Prometheus; Logging centralizado</div>
+</div>
+
+<div class="section">
+    <h2 style="color:#326ce5;">Formas de Pago</h2>
+    <ul>
+        <li><strong>Transferencia Bancaria</strong> → Banco Interbank Cuenta Corriente Soles 200-3001605915 CCI 003-200-003001605915-33</li>
+        <li><strong>PayPal</strong> (cobra 20$ de comisión) → jamdiazdiaz@gmail.com</li>
+        <li><strong>Tarjeta débito/crédito</strong> → Solicitar el pago al +51 939 965 148</li>
+    </ul>
+</div>
+
+<div class="cta">
+    <p>¡Cupos limitados! Contáctanos para consultas o comentarios</p>
+    <a href="https://wa.me/51939965148" class="wa">+51 939 965 148 (WhatsApp JoeDayz)</a>
+    <p style="margin:15px 0 0;">Escríbeme ahora y reserva tu lugar</p>
+</div>
+
+<footer>Joedayz Academy © 2025 – Todos los derechos reservados</footer></div>
+</body>
+</html>
+
